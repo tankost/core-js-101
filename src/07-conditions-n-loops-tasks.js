@@ -27,10 +27,19 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  let result;
+  if (num % 5 === 0 && num % 3 === 0) {
+    result = 'FizzBuzz';
+  } else if (num % 3 === 0) {
+    result = 'Fizz';
+  } else if (num % 5 === 0) {
+    result = 'Buzz';
+  } else {
+    result = num;
+  }
+  return result;
 }
-
 
 /**
  * Returns the factorial of the specified integer n.
@@ -43,10 +52,17 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  let result;
+  if (n < 0) {
+    result = -1;
+  } else if (n === 0) {
+    result = 1;
+  } else {
+    result = n * getFactorial(n - 1);
+  }
+  return result;
 }
-
 
 /**
  * Returns the sum of integer numbers between n1 and n2 (inclusive).
@@ -60,10 +76,15 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let sum = 0;
+  let first = n1;
+  while (first <= n2) {
+    sum += first;
+    first += 1;
+  }
+  return sum;
 }
-
 
 /**
  * Returns true, if a triangle can be built with the specified sides a, b, c
@@ -72,7 +93,7 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  * @param {number} a
  * @param {number} b
  * @param {number} c
- * @return {bool}
+ * @return {Boolean}
  *
  * @example:
  *   1,2,3    =>  false
@@ -80,10 +101,10 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) return false;
+  return a + b > c && a + c > b && c + b > a;
 }
-
 
 /**
  * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
@@ -107,7 +128,7 @@ function isTriangle(/* a, b, c */) {
  *
  * @param {object} rect1
  * @param {object} rect2
- * @return {bool}
+ * @return {Boolean}
  *
  * @example:
  *   { top: 0, left: 0, width: 10, height: 10 },
@@ -117,10 +138,11 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
-}
 
+function doRectanglesOverlap(rect1, rect2) {
+  return (rect1.left < rect2.left + rect2.width) && (rect1.left + rect1.width > rect2.left)
+    && (rect1.top < rect2.top + rect2.height) && (rect1.top + rect1.height > rect2.top);
+}
 
 /**
  * Returns true, if point lies inside the circle, otherwise false.
@@ -141,17 +163,17 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *
  * @param {object} circle
  * @param {object} point
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   { center: { x:0, y:0 }, radius:10 },  { x:0, y:0 }     => true
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const dist = Math.sqrt((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2);
+  return dist < circle.radius;
 }
-
 
 /**
  * Returns the first non repeated char in the specified strings otherwise returns null.
@@ -164,10 +186,17 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  let char;
+  for (let i = 0; i < str.length; i += 1) {
+    if (str.indexOf(str[i]) === i && str.indexOf(str[i], i + 1) === -1) {
+      char = str[i];
+      return str[i];
+    }
+  }
+  char = null;
+  return char;
 }
-
 
 /**
  * Returns the string representation of math interval,
@@ -178,8 +207,8 @@ function findFirstSingleChar(/* str */) {
  *
  * @param {number} a
  * @param {number} b
- * @param {bool} isStartIncluded
- * @param {bool} isEndIncluded
+ * @param {boolean} isStartIncluded
+ * @param {boolean} isEndIncluded
  * @return {string}
  *
  * @example
@@ -191,10 +220,11 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const start = isStartIncluded ? '[' : '(';
+  const end = isEndIncluded ? ']' : ')';
+  return a < b ? `${start}${a}, ${b}${end}` : `${start}${b}, ${a}${end}`;
 }
-
 
 /**
  * Reverse the specified string (put all chars in reverse order)
@@ -208,10 +238,11 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('')
+    .reverse()
+    .join('');
 }
-
 
 /**
  * Reverse the specified integer number (put all digits in reverse order)
@@ -225,10 +256,12 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return +num.toString()
+    .split('')
+    .reverse()
+    .join('');
 }
-
 
 /**
  * Validates the CCN (credit card number) and return true if CCN is valid
@@ -236,7 +269,7 @@ function reverseInteger(/* num */) {
  *
  * See algorithm here : https://en.wikipedia.org/wiki/Luhn_algorithm
  *
- * @param {number} cnn
+ * @param {number} ccn
  * @return {boolean}
  *
  * @example:
@@ -250,8 +283,22 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+
+function isCreditCardNumber(ccn) {
+  let ch = 0;
+  const num = ccn.toString();
+  const isOdd = num.length % 2 !== 0;
+
+  if (num === '') return false;
+
+  for (let i = 0; i < num.length; i += 1) {
+    let n = +num[i];
+
+    // eslint-disable-next-line no-cond-assign,no-bitwise
+    ch += (isOdd | 0) === (i % 2) && (n *= 2) > 9 ? (n - 9) : n;
+  }
+
+  return (ch % 10) === 0;
 }
 
 /**
@@ -259,7 +306,7 @@ function isCreditCardNumber(/* ccn */) {
  *   step1 : find sum of all digits
  *   step2 : if sum > 9 then goto step1 otherwise return the sum
  *
- * @param {number} n
+ * @param {number} num
  * @return {number}
  *
  * @example:
@@ -268,10 +315,15 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const sum = num.toString()
+    .split('')
+    .reduce((acc, curr) => +acc + +curr, 0);
+  if (sum > 9) {
+    return getDigitalRoot(sum);
+  }
+  return sum;
 }
-
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
@@ -297,7 +349,6 @@ function getDigitalRoot(/* num */) {
 function isBracketsBalanced(/* str */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
